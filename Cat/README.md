@@ -112,7 +112,7 @@ DeepCart/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/deepcart.git
+git clone https://github.com/DeepBirwadkar/deepcart.git
 
 # 2. Navigate into the project folder
 cd deepcart
@@ -158,7 +158,7 @@ http://localhost:5173
 
 💻 React.js &nbsp;|&nbsp; Java &nbsp;|&nbsp; Python
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/your-username)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DeepBirwadkar/deepcart/tree/main/Cat)
 
 </div>
 
