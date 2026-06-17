@@ -20,6 +20,7 @@ export function Navbar() {
         <li>About</li>
         <li>Review</li>
         <li>Contact</li>
+        <li>Admin</li>
        
       </ul>
 
