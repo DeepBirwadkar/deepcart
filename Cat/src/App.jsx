@@ -8,40 +8,50 @@ import Contact from "./Contact";
 import Admin from "./Admin";
 import AdminLogin from "./AdminLogin";
 
-// ✅ ProtectedRoute - same file madhe
-function ProtectedRoute({ children }) {
-  const isAdmin = localStorage.getItem("admin");
-  return isAdmin ? children : <Navigate to="/adminlogin" />;
+// 🔐 1. Normal User Guard (Website Access)
+function UserRoute({ children }) {
+  const isUser = localStorage.getItem("user_token") === "true";
+  return isUser ? children : <Navigate to="/login" replace />;
 }
 
-function App() {
+// 👑 2. Strict Admin Guard (CRUD Access)
+function AdminRoute({ children }) {
+  const isAdmin = localStorage.getItem("admin_token") === "true";
+  return isAdmin ? children : <Navigate to="/" replace />; // Admin nasel tar back to home page
+}
+
+export default function App() {
   return (
     <BrowserRouter>
-      <div style={{ backgroundColor: "#f6f6f6", minHeight: "100vh" }}>
-        <Navbar />
+      <Routes>
+        <Route path="/login" element={<AdminLogin />} />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Home" element={<Home />} />
-          <Route path="/product" element={<Product />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Review" element={<Review />} />
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/adminlogin" element={<AdminLogin />} />
-
-          {/* 🔐 Protected */}
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </div>
+        <Route path="/*" element={
+          <UserRoute>
+            <>
+              <Navbar />
+              <div style={{ backgroundColor: "#f6f6f6", minHeight: "100vh" }}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/product" element={<Product />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/review" element={<Review />} />
+                  <Route path="/contact" element={<Contact />} />
+                  
+                  {/* Strict Admin Protection Route */}
+                  <Route path="/admin" element={
+                    <AdminRoute>
+                      <Admin />
+                    </AdminRoute>
+                  } />
+                  
+                  <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+                </Routes>
+              </div>
+            </>
+          </UserRoute>
+        } />
+      </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;
